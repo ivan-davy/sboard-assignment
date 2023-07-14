@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { fillObject } from '../common/utils/fill-object';
+import { JwtGuard } from './auth/jwt.guard';
 
 @Controller()
 export class UsersController {
@@ -23,16 +24,16 @@ export class UsersController {
     return fillObject(LoggedUserRdo, newUser);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtGuard)
   @HttpCode(200)
   @Post('login')
-  public async login(@Req() { user }: RequestWithUserInterface) {
+  public async login(@Req() user: LoggedUserRdo) {
     return this.usersService.createUserToken(user);
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('refresh')
-  public async refreshToken(@Req() { user }: RequestWithUserInterface) {
+  public async refreshToken(@Req() user: LoggedUserRdo) {
     return this.usersService.createUserToken(user);
   }
 }

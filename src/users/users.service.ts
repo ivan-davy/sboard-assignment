@@ -1,9 +1,24 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import crypto from 'crypto';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { USER_EXISTS } from './users.const';
+import {
+  USER_EXISTS,
+  USER_NOT_FOUND,
+  USER_PASSWORD_WRONG,
+} from './users.const';
 import { UserInterface } from '../common/types/user.interface';
+import { JwtService } from '@nestjs/jwt';
+import jwtConfig from '../common/config/jwt.config';
+import { ConfigType } from '@nestjs/config';
+import { createJWTPayload } from '../common/utils/jwt';
+import { UsersEntity } from './users.entity';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +31,7 @@ export class UsersService {
 
   public async register(dto: CreateUserDto) {
     const { email, name, password } = dto;
-    const blogUser = {
+    const user = {
       email,
       name,
       passwordHash: '',
@@ -27,24 +42,24 @@ export class UsersService {
       throw new ConflictException(USER_EXISTS);
     }
 
-    const userEntity = await new BlogUserEntity(blogUser).setPassword(password);
+    const userEntity = await new UsersEntity(user).setPassword(password);
     return await this.usersRepository.create(userEntity);
   }
 
   public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
-    const existUser = await this.blogUserRepository.findByEmail(email);
+    const existUser = await this.usersRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new NotFoundException(USER_NOT_FOUND);
     }
 
-    const blogUserEntity = new BlogUserEntity(existUser);
-    if (!(await blogUserEntity.comparePassword(password))) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+    const userEntity = new UsersEntity(existUser);
+    if (!(await userEntity.comparePassword(password))) {
+      throw new UnauthorizedException(USER_PASSWORD_WRONG);
     }
 
-    return blogUserEntity.toObject();
+    return userEntity.toObject();
   }
 
   public async createUserToken(user: UserInterface) {
