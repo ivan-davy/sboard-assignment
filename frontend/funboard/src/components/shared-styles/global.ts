@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: azure;
     font-family: 'Helvetica', sans-serif;
     font-size: 1.25em;
+    font-weight: bold;
     margin: 0 auto;
   }
 
@@ -19,6 +20,15 @@ const GlobalStyles = createGlobalStyle`
   img {
     max-width: 100%;
   }
-`
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+`;
 
 export default GlobalStyles;
