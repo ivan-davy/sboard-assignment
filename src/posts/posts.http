@@ -1,3 +1,36 @@
-### test
-# Test
-GET http://localhost:3332/ HTTP/1.1
+### getPost
+# Get post by ID
+GET http://localhost:3001/posts/19 HTTP/1.1
+
+### getPosts
+# Get all posts
+GET http://localhost:3001/posts HTTP/1.1
+
+### deletePost
+# Delete post by ID
+DELETE http://localhost:3001/posts/16 HTTP/1.1
+Authorization: Bearer {{jwt_token}}
+
+### createPost
+# Create a new post
+POST http://localhost:3001/posts/new HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "title": "Unique title2",
+  "text": "aaaaaaaaaaaaaaaa",
+  "color": "#FFF999"
+}
+
+### updatePost
+# Update a post
+PATCH http://localhost:3001/posts/19 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "text": "textttttttttt223"
+}
+
+###

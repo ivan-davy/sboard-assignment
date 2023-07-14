@@ -1,17 +1,8 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { fillObject } from '../common/utils/fill-object';
-import { JwtGuard } from './auth/jwt.guard';
 import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('users')
@@ -26,7 +17,8 @@ export class UsersController {
 
   @HttpCode(200)
   @Post('login')
-  public async login(@Req() user: LoginUserDto) {
-    return this.usersService.createUserToken(user);
+  public async login(@Body() dto: LoginUserDto) {
+    const verifiedUser = await this.usersService.verifyUser(dto);
+    return fillObject(LoggedUserRdo, verifiedUser);
   }
 }

@@ -1,6 +1,9 @@
+import { UsersEntity } from '../../users/users.entity';
+
 export interface PostInterface {
-    title: string;
-    text: string;
-    postedDate: string;
-    createdBy: string | null;
+  id?: number;
+  title: string;
+  text: string;
+  postedDate: string;
+  createdBy: number | UsersEntity;
 }

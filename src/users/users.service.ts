@@ -18,6 +18,7 @@ import { UsersEntity } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { compare, genSalt, hash } from 'bcrypt';
+import { UserInterface } from '../common/types/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -60,14 +61,16 @@ export class UsersService {
       throw new UnauthorizedException(USER_PASSWORD_WRONG);
     }
 
-    return existUser;
+    return {
+      id: existUser.id,
+      email: existUser.email,
+      accessToken: await this.createUserToken(existUser),
+    };
   }
 
-  public async createUserToken(user: LoginUserDto) {
+  public async createUserToken(user: UserInterface) {
     const accessTokenPayload = createJWTPayload(user);
 
-    return {
-      accessToken: await this.jwtService.signAsync(accessTokenPayload),
-    };
+    return await this.jwtService.signAsync(accessTokenPayload);
   }
 }
