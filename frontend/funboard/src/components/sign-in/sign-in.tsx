@@ -1,8 +1,10 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import { AuthorizationStatusEnum } from '../../const/authorization-status.enum';
+import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
+import { AuthDataType } from '../../types/auth-data.type';
 
 export default function SignIn(): ReactElement {
   const emailRef = useRef<HTMLInputElement | null>(null);
