@@ -6,6 +6,8 @@ import SignIn from '../sign-in/sign-in';
 import Register from '../register/register';
 import { ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
+import NotFound from '../not-found/not-found';
+import PostsList from '../posts-list/posts-list';
 
 const theme = {
   colors: {
@@ -30,6 +32,14 @@ function App(): ReactElement | null {
         <Route path={PageRouteEnum.Register} element={<CommonLayout />}>
           <Route path={''} element={<Register />} />
         </Route>
+
+        <Route path={PageRouteEnum.Posts} element={<CommonLayout />}>
+          <Route path={''} element={<PostsList />} />
+        </Route>
+
+        <Route path="*" element={<CommonLayout />}>
+          <Route path={'*'} element={<NotFound />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );
@@ -38,18 +48,5 @@ function App(): ReactElement | null {
 export default App;
 
 /*
-      <Route
-        path={PageRouteEnum.Posts}
-        element={
-          <AdminRoute authorizationData={authData}>
-            <CommonLayout />
-          </AdminRoute>
-        }
-      >
-        <Route path={''} element={<ProductsMenu />} />
-      </Route>
 
-      <Route path="*" element={<CommonLayout />}>
-        <Route path={'*'} element={<NotFound />} />
-      </Route>
 */
