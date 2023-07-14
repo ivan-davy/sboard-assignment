@@ -13,14 +13,13 @@ import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { fillObject } from '../common/utils/fill-object';
 import { JwtGuard } from './auth/jwt.guard';
 
-@Controller()
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.usersService.register(dto);
-    const { email, name } = newUser;
     return fillObject(LoggedUserRdo, newUser);
   }
 

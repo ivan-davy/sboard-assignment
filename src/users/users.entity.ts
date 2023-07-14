@@ -12,5 +12,5 @@ export class UsersEntity {
   email: string;
 
   @Column()
-  passwordHash: boolean;
+  passwordHash: string;
 }

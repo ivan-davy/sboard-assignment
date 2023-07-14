@@ -1,6 +1,5 @@
 import {
   ConflictException,
-  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -8,25 +7,25 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import {
+  SALT_ROUNDS,
   USER_EXISTS,
   USER_NOT_FOUND,
   USER_PASSWORD_WRONG,
 } from './users.const';
 import { UserInterface } from '../common/types/user.interface';
 import { JwtService } from '@nestjs/jwt';
-import jwtConfig from '../common/config/jwt.config';
-import { ConfigType } from '@nestjs/config';
 import { createJWTPayload } from '../common/utils/jwt';
 import { UsersEntity } from './users.entity';
-import { UsersRepository } from './users.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { compare, genSalt, hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
-    private readonly usersRepository: UsersRepository,
+    @InjectRepository(UsersEntity)
+    private readonly usersRepository: Repository<UsersEntity>,
     private readonly jwtService: JwtService,
-    @Inject(jwtConfig.KEY)
-    private readonly jwtOptions: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async register(dto: CreateUserDto) {
@@ -37,29 +36,32 @@ export class UsersService {
       passwordHash: '',
     };
 
-    const existUser = await this.usersRepository.findByEmail(email);
+    const existUser = await this.usersRepository.findOne({ where: { email } });
     if (existUser) {
       throw new ConflictException(USER_EXISTS);
     }
 
-    const userEntity = await new UsersEntity(user).setPassword(password);
-    return await this.usersRepository.create(userEntity);
+    const salt = await genSalt(SALT_ROUNDS);
+    const passwordHash = await hash(password, salt);
+    return await this.usersRepository.save({
+      ...user,
+      passwordHash,
+    });
   }
 
   public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
-    const existUser = await this.usersRepository.findByEmail(email);
+    const existUser = await this.usersRepository.findOne({ where: { email } });
 
     if (!existUser) {
       throw new NotFoundException(USER_NOT_FOUND);
     }
 
-    const userEntity = new UsersEntity(existUser);
-    if (!(await userEntity.comparePassword(password))) {
+    if (!(await compare(password, existUser.passwordHash))) {
       throw new UnauthorizedException(USER_PASSWORD_WRONG);
     }
 
-    return userEntity.toObject();
+    return existUser;
   }
 
   public async createUserToken(user: UserInterface) {
