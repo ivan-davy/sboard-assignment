@@ -12,7 +12,6 @@ import {
   USER_NOT_FOUND,
   USER_PASSWORD_WRONG,
 } from './users.const';
-import { UserInterface } from '../common/types/user.interface';
 import { JwtService } from '@nestjs/jwt';
 import { createJWTPayload } from '../common/utils/jwt';
 import { UsersEntity } from './users.entity';
@@ -64,7 +63,7 @@ export class UsersService {
     return existUser;
   }
 
-  public async createUserToken(user: UserInterface) {
+  public async createUserToken(user: LoginUserDto) {
     const accessTokenPayload = createJWTPayload(user);
 
     return {

@@ -1,10 +1,8 @@
-import { UserInterface } from '../types/user.interface';
 import { TokenPayloadInterface } from '../types/token-payload.interface';
+import { LoginUserDto } from '../../users/dto/login-user.dto';
 
-export function createJWTPayload(user: UserInterface): TokenPayloadInterface {
+export function createJWTPayload(user: LoginUserDto): TokenPayloadInterface {
   return {
-    sub: user.id,
     email: user.email,
-    name: user.name,
   };
 }
