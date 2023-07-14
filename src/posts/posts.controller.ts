@@ -25,7 +25,7 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @UseGuards(JwtGuard)
-  @Post('new')
+  @Post('')
   public async create(
     @CurrentUser() currentUser: TokenPayloadInterface,
     @Body() dto: CreatePostDto,
