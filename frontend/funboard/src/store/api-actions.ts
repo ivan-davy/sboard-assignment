@@ -13,6 +13,7 @@ import { PostUpdateType } from '../types/post-update.type';
 import { UserType } from '../types/user.type';
 import { RegisterDataType } from '../types/register-data.type';
 import { AuthDataType } from '../types/auth-data.type';
+import HttpError from '../utils/http-error';
 
 type FetchPostsReturnType = PostType[];
 export const fetchPostsDataAction = createAsyncThunk<

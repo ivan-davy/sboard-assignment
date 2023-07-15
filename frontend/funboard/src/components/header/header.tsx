@@ -1,10 +1,7 @@
-import { HeaderStyled } from './header.styled';
+import { HeaderStyled, LinkStyled, LiStyled, NavStyled } from './header.styled';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
-import { NavStyled } from './nav.styled';
-import { LiStyled } from './li.styled';
-import { LinkStyled } from './link.styled';
 
 export default function Header(): ReactElement {
   //const authStatus: AuthorizationStatusEnum = useAppSelector(getAuthStatus);

@@ -8,6 +8,8 @@ import { ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 import NotFound from '../not-found/not-found';
 import PostsList from '../posts-list/posts-list';
+import { getAuthStatus } from '../../store/service/selectors';
+import { useAppSelector } from '../hooks/store-hooks';
 
 const theme = {
   colors: {
@@ -17,9 +19,9 @@ const theme = {
 };
 
 function App(): ReactElement | null {
-  /*const authData = {
+  const authData = {
     authStatus: useAppSelector(getAuthStatus),
-  };*/
+  };
 
   return (
     <ThemeProvider theme={theme}>

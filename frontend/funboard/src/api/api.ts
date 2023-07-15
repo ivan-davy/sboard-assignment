@@ -7,6 +7,7 @@ import axios, {
 import { getToken } from './token';
 import { toast } from 'react-toastify';
 import { StatusCodes } from 'http-status-codes';
+import { trace } from 'joi';
 
 export const BASE_URL = 'http://localhost:3001';
 export const REQUEST_TIMEOUT = 5000;
@@ -15,6 +16,7 @@ const ErrorDisplayMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: false,
   [StatusCodes.NOT_FOUND]: true,
+  [StatusCodes.CONFLICT]: true,
 };
 
 const shouldDisplayError = (response: AxiosResponse) =>
@@ -38,7 +40,7 @@ export const createApi = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{ error: string }>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        toast.error(`Error ${error.response.status}`);
+        toast.error(`Error ${error.response.statusText}`);
         throw error.response.status;
       }
     },

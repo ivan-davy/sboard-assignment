@@ -5,7 +5,7 @@ POST http://localhost:3001/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": " v",
+  "email": "user0@mail.com",
   "password": "123456"
 }
 
@@ -20,7 +20,7 @@ POST http://localhost:3001/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user6@mail.com",
+  "email": "user0@mail.com",
   "name": "Xx_Amogus_xX",
   "password": "123456"
 }
@@ -28,8 +28,4 @@ Content-Type: application/json
 ### checkAuth
 GET http://localhost:3001/users/login HTTP/1.1
 Content-Type: application/json
-Authentication: Bearer {{jwt_token}}
 
-> {%
-  client.global.set("jwt_token", response.body.accessToken);
-%}
