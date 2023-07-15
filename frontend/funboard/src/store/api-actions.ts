@@ -137,7 +137,12 @@ export const registerAction = createAsyncThunk<
 >(
   'user/api/register',
   async ({ name, email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserType>(ApiRouteEnum.Register, {
+    const { data } = await api.post<{
+      id: number;
+      name: string;
+      email: string;
+      accessToken: string;
+    }>(ApiRouteEnum.Register, {
       name,
       email,
       password,
@@ -149,6 +154,8 @@ export const registerAction = createAsyncThunk<
       email: data.email,
       token: data.accessToken,
     };
+
+    console.log(userData.token as string);
 
     saveToken(userData.token as string);
     return userData;

@@ -23,7 +23,11 @@ export class UsersController {
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.usersService.register(dto);
-    return fillObject(LoggedUserRdo, newUser);
+    const verifiedUser = await this.usersService.verifyUser({
+      email: newUser.email,
+      password: dto.password,
+    });
+    return fillObject(LoggedUserRdo, verifiedUser);
   }
 
   @HttpCode(HttpStatus.OK)

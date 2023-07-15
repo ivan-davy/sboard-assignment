@@ -12,6 +12,7 @@ import {
 } from '../create-card/create-card.styled';
 import { ButtonStyled } from '../shared-styles/global';
 import { CardModeEnum } from '../../const/card-mode.enum';
+import { updatePostInStateAction } from '../../store/posts/actions';
 
 interface UpdateCardPropsType {
   postId: number;
@@ -36,7 +37,7 @@ export default function UpdateCard({
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(updatePostAction({ post: { title, text, color }, postId }));
-    window.location.reload();
+    dispatch(updatePostInStateAction({ id: postId, text, title, color }));
     setMode(CardModeEnum.View);
   };
 

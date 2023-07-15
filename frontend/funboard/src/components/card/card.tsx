@@ -43,9 +43,9 @@ export default function Card({
     setMode(CardModeEnum.Edit);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchPostsDataAction());
-  }, [mode]);
+  }, [mode]);*/
 
   return mode === CardModeEnum.Edit ? (
     <UpdateCard
@@ -64,7 +64,7 @@ export default function Card({
       <IStyled>{`by ${createdBy}#${createdById}, on ${dayjs(postedDate).format(
         'dddd',
       )}`}</IStyled>
-      {userId === createdById ? (
+      {userId === createdById && id ? (
         <BtnContainerDiv>
           <ButtonStyled value={id} color={'darkorange'} onClick={handleEdit}>
             Edit

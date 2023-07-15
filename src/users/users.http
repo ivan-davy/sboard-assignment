@@ -20,7 +20,7 @@ POST http://localhost:3001/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user0@mail.com",
+  "email": "user03@mail.com",
   "name": "Donna",
   "password": "123456"
 }

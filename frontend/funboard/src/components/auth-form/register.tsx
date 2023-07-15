@@ -13,7 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { validateRegisterForm } from '../../utils/form-validators';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
-import { registerAction } from '../../store/api-actions';
+import { checkAuthAction, registerAction } from '../../store/api-actions';
 import { RegisterDataType } from '../../types/register-data.type';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import { AuthorizationStatusEnum } from '../../const/authorization-status.enum';
@@ -44,7 +44,8 @@ export default function Register(): ReactElement {
         password,
       } as RegisterDataType),
     );
-    navigate(PageRouteEnum.Posts);
+    dispatch(checkAuthAction);
+    navigate(PageRouteEnum.SignIn);
   };
 
   useEffect(() => {
