@@ -38,11 +38,13 @@ export class PostsController {
   async show() {
     const posts = await this.postsService.get();
     const results = posts.map((post) => fillObject(PostRdo, post));
-    return results.reverse().map((post, index) => ({
-      ...post,
-      createdById: (posts[index].createdBy as UsersEntity).id,
-      createdBy: (posts[index].createdBy as UsersEntity).name,
-    }));
+    return results
+      .map((post, index) => ({
+        ...post,
+        createdById: (posts[index].createdBy as UsersEntity).id,
+        createdBy: (posts[index].createdBy as UsersEntity).name,
+      }))
+      .reverse();
   }
 
   @Get(':id')

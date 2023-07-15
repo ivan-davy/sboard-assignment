@@ -3,13 +3,13 @@ import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
 import { getPosts } from '../../store/posts/selectors';
 import { PostType } from '../../types/post.type';
 import { fetchPostsDataAction } from '../../store/api-actions';
-import PostCard from '../post-card/post-card';
-import { PStyled, UlStyled } from './posts-list.styled';
+import Card from '../card/card';
+import { PStyled, UlStyled } from './cards-list.styled';
 import { getAuthStatus } from '../../store/service/selectors';
 import { AuthorizationStatusEnum } from '../../const/authorization-status.enum';
-import CreationCard from '../creation-card/creation-card';
+import CreateCard from '../create-card/create-card';
 
-export default function PostsList(): ReactElement {
+export default function CardsList(): ReactElement {
   const posts = useAppSelector(getPosts);
   const dispatch = useAppDispatch();
   const isAuthorized =
@@ -22,7 +22,7 @@ export default function PostsList(): ReactElement {
   return (
     <main>
       <UlStyled>
-        {isAuthorized ? <CreationCard /> : null}
+        {isAuthorized ? <CreateCard /> : null}
         {posts.length === 0 ? (
           <PStyled>
             Nothing here... yet.
@@ -32,7 +32,7 @@ export default function PostsList(): ReactElement {
         ) : null}
         {posts.map((post: PostType) => {
           return (
-            <PostCard
+            <Card
               key={post.id}
               id={post.id}
               postedDate={post.postedDate}

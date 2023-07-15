@@ -6,6 +6,7 @@ export const LiStyled = styled.li<{ borderColor: string }>`
   background: ${({ borderColor }) => borderColor}22;
   border-radius: 10px;
   width: 300px;
+  min-height: 200px;
   max-height: 400px;
   margin: 20px;
   padding: 15px;

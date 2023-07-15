@@ -2,18 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { redirectToRouteAction } from './service/actions';
 import { saveToken } from '../api/token';
-import React from 'react';
 import { toast } from 'react-toastify';
 import { PostType } from '../types/post.type';
 import { AppDispatchType, StateType } from '../types/states/state.type';
 import { ApiRouteEnum } from '../const/routes/api-route.enum';
 import { PageRouteEnum } from '../const/routes/page-route.enum';
-import { FormStatusEnum } from '../const/form-status.enum';
 import { PostUpdateType } from '../types/post-update.type';
 import { UserType } from '../types/user.type';
 import { RegisterDataType } from '../types/register-data.type';
 import { AuthDataType } from '../types/auth-data.type';
-import HttpError from '../utils/http-error';
 
 type FetchPostsReturnType = PostType[];
 export const fetchPostsDataAction = createAsyncThunk<
@@ -62,7 +59,6 @@ export const updatePostAction = createAsyncThunk<
   UpdatePostReturnType,
   {
     post: PostUpdateType;
-    setFormSubmitStateCb: React.Dispatch<React.SetStateAction<number>>;
     postId: number;
   },
   {
@@ -79,14 +75,11 @@ export const updatePostAction = createAsyncThunk<
         formData.post,
       )
     ).data;
-    formData.setFormSubmitStateCb(FormStatusEnum.Submitted);
     dispatch(redirectToRouteAction(`${PageRouteEnum.Posts}`));
 
     return updatedPost;
   } catch (err) {
     toast.error('Something went wrong...');
-    formData.setFormSubmitStateCb(FormStatusEnum.Available);
-
     throw err;
   }
 });
@@ -154,7 +147,7 @@ export const registerAction = createAsyncThunk<
       id: data.id,
       name: data.name,
       email: data.email,
-      token: data.token,
+      token: data.accessToken,
     };
 
     saveToken(userData.token as string);

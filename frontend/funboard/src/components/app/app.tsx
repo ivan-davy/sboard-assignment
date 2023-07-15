@@ -7,7 +7,7 @@ import Register from '../auth-form/register';
 import { ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 import NotFound from '../not-found/not-found';
-import PostsList from '../posts-list/posts-list';
+import CardsList from '../cards-list/cards-list';
 import { getAuthStatus } from '../../store/service/selectors';
 import { useAppSelector } from '../hooks/store-hooks';
 
@@ -36,7 +36,7 @@ function App(): ReactElement | null {
         </Route>
 
         <Route path={PageRouteEnum.Posts} element={<CommonLayout />}>
-          <Route path={''} element={<PostsList />} />
+          <Route path={''} element={<CardsList />} />
         </Route>
 
         <Route path="*" element={<CommonLayout />}>

@@ -9,9 +9,19 @@ export const UlStyled = styled.ul`
 `;
 
 export const PStyled = styled.p`
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   position: absolute;
   top: 400px;
   font-size: 2em;
   text-transform: uppercase;
   text-align: center;
+  animation: fadeIn 1s;
 `;

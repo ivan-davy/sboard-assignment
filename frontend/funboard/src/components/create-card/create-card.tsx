@@ -1,24 +1,21 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
 import { getUserData } from '../../store/user/selectors';
-import {
-  createPostAction,
-  fetchPostsDataAction,
-} from '../../store/api-actions';
+import { createPostAction } from '../../store/api-actions';
 import {
   BtnContainerDiv,
   ColorInputStyled,
   LiStyled,
   TextInputStyled,
   TitleInputStyled,
-} from './creation-card.styled';
+} from './create-card.styled';
 import { useNavigate } from 'react-router-dom';
 import { ButtonStyled } from '../shared-styles/global';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import { addPostToStateAction } from '../../store/posts/actions';
 import dayjs from 'dayjs';
 
-export default function CreationCard(): ReactElement {
+export default function CreateCard(): ReactElement {
   const [title, setTitle] = useState<string>('');
   const [text, setText] = useState<string>('');
   const [color, setColor] = useState<string>('#5A73FF');
@@ -29,7 +26,6 @@ export default function CreationCard(): ReactElement {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log(title, text, color);
     dispatch(createPostAction({ post: { title, text, color } }));
     dispatch(
       addPostToStateAction({
@@ -41,7 +37,6 @@ export default function CreationCard(): ReactElement {
         postedDate: dayjs().toISOString(),
       }),
     );
-    //dispatch(fetchPostsDataAction());
     setTitle('');
     setText('');
     setColor('#5A73FF');
