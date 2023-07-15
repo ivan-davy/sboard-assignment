@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: azure;
+    background-color: aliceblue;
     font-family: 'Helvetica', sans-serif;
     font-size: 1.25em;
     font-weight: bold;

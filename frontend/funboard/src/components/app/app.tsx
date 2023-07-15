@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import CommonLayout from '../../pages/common-layout/common-layout';
 import GlobalStyles from '../shared-styles/global';
-import SignIn from '../sign-in/sign-in';
-import Register from '../register/register';
+import SignIn from '../auth-form/sign-in';
+import Register from '../auth-form/register';
 import { ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 import NotFound from '../not-found/not-found';
@@ -13,7 +13,7 @@ import { useAppSelector } from '../hooks/store-hooks';
 
 const theme = {
   colors: {
-    accent: 'coral',
+    accent: 'crimson',
     bright: 'whitesmoke',
   },
 };

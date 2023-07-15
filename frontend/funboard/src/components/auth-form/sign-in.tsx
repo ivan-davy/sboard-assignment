@@ -9,19 +9,18 @@ import {
   FormButton,
   FormTitle,
   FormContainer,
-} from './register.styled';
+} from './auth-form.styled';
 import { useNavigate } from 'react-router-dom';
-import validateRegisterForm from '../../utils/form-validators';
+import { validateLoginForm } from '../../utils/form-validators';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
-import { registerAction } from '../../store/api-actions';
-import { RegisterDataType } from '../../types/register-data.type';
+import { loginAction } from '../../store/api-actions';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import { AuthorizationStatusEnum } from '../../const/authorization-status.enum';
 import { getAuthStatus } from '../../store/service/selectors';
 import { toast } from 'react-toastify';
+import { AuthDataType } from '../../types/auth-data.type';
 
-export default function Register(): ReactElement {
-  const [name, setName] = useState<string>('');
+export default function SignIn(): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -31,18 +30,17 @@ export default function Register(): ReactElement {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const validationMessage = validateRegisterForm({ name, email, password });
+    const validationMessage = validateLoginForm({ email, password });
     if (validationMessage) {
       toast.error(validationMessage);
       return;
     }
 
     dispatch(
-      registerAction({
-        name,
+      loginAction({
         email,
         password,
-      } as RegisterDataType),
+      } as AuthDataType),
     );
     navigate(PageRouteEnum.Posts);
   };
@@ -54,13 +52,6 @@ export default function Register(): ReactElement {
   }, []);
 
   const formData = [
-    {
-      label: 'Name',
-      value: name,
-      onChange: (evt: React.FormEvent<HTMLInputElement>) =>
-        setName(evt.currentTarget.value),
-      type: 'text',
-    },
     {
       label: 'Email',
       value: email,
@@ -82,7 +73,7 @@ export default function Register(): ReactElement {
       <FormContainer>
         <FormRow>
           <FormColumn>
-            <FormTitle>Sign up</FormTitle>
+            <FormTitle>Sign In</FormTitle>
             <FormWrapper onSubmit={handleSubmit}>
               {formData.map((elem, index) => (
                 <FormInputRow key={index}>

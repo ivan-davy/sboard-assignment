@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderStyled = styled.header`
-  background: linear-gradient(to right, deepskyblue 0%, cadetblue 100%);
+  background: linear-gradient(to right, deepskyblue 0%, mediumpurple 100%);
   padding: 20px;
   height: 70px;
   box-shadow: rgba(0, 0, 0, 25%) 0 4px 3px;
@@ -22,7 +22,7 @@ export const LiStyled = styled.li`
 `;
 export const LinkStyled = styled(Link)`
   :hover {
-    color: coral;
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 export const NavStyled = styled.nav`

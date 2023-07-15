@@ -49,6 +49,10 @@ export class UsersService {
     });
   }
 
+  public async getUser(userId: number) {
+    return this.usersRepository.findOne({ where: { id: userId } });
+  }
+
   public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
     const existUser = await this.usersRepository.findOne({ where: { email } });
@@ -64,6 +68,7 @@ export class UsersService {
     return {
       id: existUser.id,
       email: existUser.email,
+      name: existUser.name,
       accessToken: await this.createUserToken(existUser),
     };
   }

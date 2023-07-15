@@ -4,6 +4,7 @@ export const FormTitle = styled.h1`
   font-weight: lighter;
   margin: 0;
   font-size: 1.5em;
+  text-transform: capitalize;
 `;
 
 export const FormContainer = styled.div`

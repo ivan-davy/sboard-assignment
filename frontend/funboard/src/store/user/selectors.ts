@@ -4,5 +4,5 @@ import { NamespaceEnum } from '../../const/namespace.enum';
 
 export const getUserData = (state: StateType): UserType =>
   state[NamespaceEnum.User];
-export const getUserId = (state: StateType): string | null =>
+export const getUserId = (state: StateType): number | null =>
   state[NamespaceEnum.User].id ?? null;
