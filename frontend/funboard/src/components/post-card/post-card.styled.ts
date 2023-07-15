@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const LiStyled = styled.li<{ borderColor: string }>`
   outline: 5px solid ${({ borderColor }) => borderColor};
   box-shadow: ${({ borderColor }) => borderColor} 0px 0px 20px;
+  background: ${({ borderColor }) => borderColor}22;
   border-radius: 10px;
   width: 300px;
   max-height: 400px;

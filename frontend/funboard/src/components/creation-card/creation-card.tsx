@@ -1,5 +1,4 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
-import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
 import { getUserData } from '../../store/user/selectors';
 import {
@@ -15,6 +14,9 @@ import {
 } from './creation-card.styled';
 import { useNavigate } from 'react-router-dom';
 import { ButtonStyled } from '../shared-styles/global';
+import { PageRouteEnum } from '../../const/routes/page-route.enum';
+import { addPostToStateAction } from '../../store/posts/actions';
+import dayjs from 'dayjs';
 
 export default function CreationCard(): ReactElement {
   const [title, setTitle] = useState<string>('');
@@ -27,8 +29,23 @@ export default function CreationCard(): ReactElement {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    console.log(title, text, color);
     dispatch(createPostAction({ post: { title, text, color } }));
-    dispatch(fetchPostsDataAction());
+    dispatch(
+      addPostToStateAction({
+        title,
+        text,
+        color,
+        createdBy: userData.name as string,
+        createdById: userData.id as number,
+        postedDate: dayjs().toISOString(),
+      }),
+    );
+    //dispatch(fetchPostsDataAction());
+    setTitle('');
+    setText('');
+    setColor('#5A73FF');
+    navigate(PageRouteEnum.Posts);
   };
 
   const formData = {
@@ -72,7 +89,7 @@ export default function CreationCard(): ReactElement {
           onChange={formData.color.onChange}
         />
         <BtnContainerDiv>
-          <ButtonStyled color={'lightgreen'}>Create</ButtonStyled>
+          <ButtonStyled color={color}>Create</ButtonStyled>
         </BtnContainerDiv>
       </form>
     </LiStyled>

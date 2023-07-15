@@ -8,12 +8,16 @@ export const LiStyled = styled.li<{ borderColor: string }>`
   max-height: 400px;
   margin: 20px;
   padding: 15px;
+  background-color: white;
 `;
 
 export const TitleInputStyled = styled.input`
   width: 270px;
   font-size: 0.75em;
   display: inline-block;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: white;
 `;
 
 export const TextInputStyled = styled.textarea`
@@ -25,6 +29,7 @@ export const TextInputStyled = styled.textarea`
   height: 150px;
   box-sizing: border-box;
   resize: none;
+  background-color: white;
 `;
 
 export const ColorInputStyled = styled.input`

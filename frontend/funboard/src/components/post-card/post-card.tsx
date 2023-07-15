@@ -40,8 +40,8 @@ export default function PostCard({
       <hr />
       <PStyled>{text}</PStyled>
       <hr />
-      <IStyled>{`by ${createdBy}#${createdById}, ${dayjs(postedDate).format(
-        'HH:MM DD/MM/YY',
+      <IStyled>{`by ${createdBy}#${createdById}, on ${dayjs(postedDate).format(
+        'dddd',
       )}`}</IStyled>
       {userId === createdById ? (
         <BtnContainerDiv>

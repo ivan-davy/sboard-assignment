@@ -20,7 +20,7 @@ Authorization: Bearer {{jwt_token}}
 {
   "title": "adfslgjhapdijfghpajudfhgpaud",
   "text": "gh aeo iurgho qiuaerhgoque hrgouqae hrgiouhqeoriugyhqoeyrgfoqyegrouyqgeroygqoehrg",
-  "color": "#B07020"
+  "color": "#a07f81"
 }
 
 ### updatePost
