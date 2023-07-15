@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
@@ -31,4 +31,22 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default GlobalStyles;
+export const ButtonStyled = styled.button<{ color: string }>`
+  background-color: ${({ color }) => color};
+  margin: 5px;
+  border: none;
+  box-shadow: black 0 2px 2px;
+  width: 100px;
+  height: 40px;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+    box-shadow: none;
+    position: relative;
+    top: 2px;
+  }
+`;

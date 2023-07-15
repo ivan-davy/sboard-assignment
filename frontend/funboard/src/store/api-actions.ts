@@ -36,8 +36,7 @@ type CreatePostReturnType = PostType;
 export const createPostAction = createAsyncThunk<
   CreatePostReturnType,
   {
-    post: PostType;
-    setFormSubmitStateCb: React.Dispatch<React.SetStateAction<number>>;
+    post: { title: string; text: string; color: string };
   },
   {
     dispatch: AppDispatchType;
@@ -49,14 +48,11 @@ export const createPostAction = createAsyncThunk<
     const newPost = (
       await api.post<PostType>(`${ApiRouteEnum.Posts}`, formData.post)
     ).data;
-    formData.setFormSubmitStateCb(FormStatusEnum.Submitted);
     dispatch(redirectToRouteAction(`${PageRouteEnum.Posts}`));
 
     return newPost;
   } catch (err) {
     toast.error('Something went wrong...');
-    formData.setFormSubmitStateCb(FormStatusEnum.Available);
-
     throw err;
   }
 });

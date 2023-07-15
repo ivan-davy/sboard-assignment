@@ -1,4 +1,4 @@
-import React, { ReactElement, SyntheticEvent, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { PostType } from '../../types/post.type';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
@@ -6,13 +6,13 @@ import { getUserId } from '../../store/user/selectors';
 import { deletePostAction } from '../../store/api-actions';
 import {
   BtnContainerDiv,
-  ButtonStyled,
   IStyled,
   LiStyled,
   PStyled,
   StrongStyled,
 } from './post-card.styled';
 import { deletePostFromStateAction } from '../../store/posts/actions';
+import { ButtonStyled } from '../shared-styles/global';
 
 export default function PostCard({
   id,
@@ -37,9 +37,11 @@ export default function PostCard({
   return (
     <LiStyled borderColor={color}>
       <StrongStyled>{title}</StrongStyled>
+      <hr />
       <PStyled>{text}</PStyled>
+      <hr />
       <IStyled>{`by ${createdBy}#${createdById}, ${dayjs(postedDate).format(
-        'DD/MM/YY',
+        'HH:MM DD/MM/YY',
       )}`}</IStyled>
       {userId === createdById ? (
         <BtnContainerDiv>

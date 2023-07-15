@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
 import CommonLayout from '../../pages/common-layout/common-layout';
-import GlobalStyles from '../shared-styles/global';
+import { GlobalStyles } from '../shared-styles/global';
 import SignIn from '../auth-form/sign-in';
 import Register from '../auth-form/register';
 import { ReactElement } from 'react';

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const FormTitle = styled.h1`
-  font-weight: lighter;
+  font-weight: bold;
   margin: 0;
   font-size: 1.5em;
-  text-transform: capitalize;
+  text-transform: uppercase;
 `;
 
 export const FormContainer = styled.div`
@@ -16,7 +16,8 @@ export const FormContainer = styled.div`
 export const FormColumn = styled.div`
   padding: 15px;
   background: white;
-  border: 2px darkcyan solid;
+  border: 5px #5a73ff solid;
+  box-shadow: #5a73ff 0 0 20px;
   flex: 1;
   width: 80lvw;
   display: flex;
@@ -24,6 +25,7 @@ export const FormColumn = styled.div`
   align-items: center;
   border-radius: 20px;
   flex-direction: column;
+  max-width: 600px;
 `;
 
 export const FormRow = styled.div`
@@ -35,7 +37,6 @@ export const FormRow = styled.div`
 `;
 
 export const FormWrapper = styled.form`
-  /* max-width: 540px; */
   padding-top: 0;
   width: 100%;
 `;
@@ -55,7 +56,7 @@ export const FormInput = styled.input`
   height: 40px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #cfcfcf;
+  border-bottom: 1px solid black;
   font-size: 1rem;
 `;
 
@@ -63,26 +64,30 @@ export const FormLabel = styled.label`
   display: inline-block;
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
-  color: #afafaf;
+  color: black;
 `;
 
-export const FormButton = styled.button`
-  border-radius: 10px;
-  background: none;
-  margin-top: 1.5rem;
-  white-space: nowrap;
-  outline: none;
+export const FormButton = styled.button<{ color?: string }>`
+  border-radius: 5px;
+  margin-top: 0.5rem;
   width: 100%;
-  font-size: 1.4rem;
   padding: 5px 15px;
-  border: 2px darkcyan solid;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  background-color: ${({ color }) => color || '#5A73FF'};
+  border: none;
+  box-shadow: black 0 2px 2px;
+  height: 40px;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: whitesmoke;
 
-  &:hover {
-    color: white;
-    transition: background-color 0.4s ease-in;
-    background-color: darkcyan;
+  :hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+    box-shadow: none;
+    position: relative;
+    top: 2px;
   }
 `;
