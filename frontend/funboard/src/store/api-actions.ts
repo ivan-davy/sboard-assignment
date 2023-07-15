@@ -25,14 +25,11 @@ export const fetchPostsDataAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('posts/api/get-all', async (_, { getState, dispatch, extra: api }) => {
-  let fetchedPosts = [] as PostType[];
   try {
-    fetchedPosts = (await api.get<PostType[]>(ApiRouteEnum.Posts)).data;
+    return (await api.get<PostType[]>(ApiRouteEnum.Posts)).data;
   } catch (err) {
-    dispatch(redirectToRouteAction(PageRouteEnum.NotFound));
     throw err;
   }
-  return fetchedPosts;
 });
 
 type CreatePostReturnType = PostType;

@@ -12,7 +12,8 @@ export const posts = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchPostsDataAction.fulfilled, (state, action) => {
-      state = action.payload;
+      state.length = 0;
+      state.push(...action.payload);
     });
 
     builder.addCase(deletePostFromStateAction, (state, action) => {

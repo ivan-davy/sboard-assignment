@@ -18,6 +18,6 @@ export class PostsEntity {
   @Column()
   postedDate: string;
 
-  @ManyToOne(() => UsersEntity, (user) => user.posts)
+  @ManyToOne(() => UsersEntity, (user) => user.id)
   createdBy: number | UsersEntity;
 }

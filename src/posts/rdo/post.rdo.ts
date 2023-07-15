@@ -15,7 +15,7 @@ export class PostRdo {
   public postedDate: string;
 
   @Expose()
-  public createdBy: PostsEntity;
+  public createdById: number | { id: number; name: string; email: string };
 
   @Expose()
   public color: string;

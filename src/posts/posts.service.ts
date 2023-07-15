@@ -47,7 +47,9 @@ export class PostsService {
   }
 
   async get(): Promise<PostInterface[]> {
-    return await this.postsRepository.find();
+    const posts = await this.postsRepository.find({ relations: ['createdBy'] });
+    //console.log(posts);
+    return posts;
   }
 
   public async remove(postId: number) {

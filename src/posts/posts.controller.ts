@@ -12,7 +12,7 @@ import {
 import { TokenPayloadInterface } from '../common/types/token-payload.interface';
 import { CreatePostDto } from './dto/create/create-post.dto';
 import { fillObject } from '../common/utils/fill-object';
-import { PostRdo } from './rdo/post-text.rdo';
+import { PostRdo } from './rdo/post.rdo';
 import { UpdatePostDto } from './dto/update/update-post.dto';
 import { JwtGuard } from '../users/auth/jwt.guard';
 import { CurrentUser } from '../common/utils/current-user.decorator';
@@ -37,7 +37,12 @@ export class PostsController {
   @Get('')
   async show() {
     const posts = await this.postsService.get();
-    return posts.map((post) => fillObject(PostRdo, post));
+    const results = posts.map((post) => fillObject(PostRdo, post));
+    return results.map((post, index) => ({
+      ...post,
+      createdById: (posts[index].createdBy as UsersEntity).id,
+      createdBy: (posts[index].createdBy as UsersEntity).name,
+    }));
   }
 
   @Get(':id')

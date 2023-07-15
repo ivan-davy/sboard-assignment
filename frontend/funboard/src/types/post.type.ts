@@ -3,6 +3,7 @@ export type PostType = {
   title: string;
   text: string;
   color: string;
-  createdBy: number;
+  createdBy: string;
+  createdById: number;
   postedDate: string;
 };
