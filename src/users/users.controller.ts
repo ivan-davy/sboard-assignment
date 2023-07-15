@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Headers,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
@@ -20,5 +28,11 @@ export class UsersController {
   public async login(@Body() dto: LoginUserDto) {
     const verifiedUser = await this.usersService.verifyUser(dto);
     return fillObject(LoggedUserRdo, verifiedUser);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('login')
+  public async checkAuth(@Headers() headers) {
+    return false;
   }
 }

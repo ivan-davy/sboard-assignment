@@ -127,7 +127,7 @@ export const checkAuthAction = createAsyncThunk<
     state: StateType;
     extra: AxiosInstance;
   }
->('user/api/check-auth', async (_arg, { dispatch, extra: api }) => {
+>('user/api/check-auth', async (_, { dispatch, extra: api }) => {
   const userData = (await api.get<UserType>(ApiRouteEnum.SignIn)).data;
   const completeUserData: CheckAuthReturnType = {
     id: userData.id,
