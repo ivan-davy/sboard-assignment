@@ -4,6 +4,7 @@ import { getPosts } from '../../store/posts/selectors';
 import { PostType } from '../../types/post.type';
 import { fetchPostsDataAction } from '../../store/api-actions';
 import PostCard from '../post-card/post-card';
+import { UlStyled } from './posts-list.styled';
 
 export default function PostsList(): ReactElement {
   const posts = useAppSelector(getPosts);
@@ -13,15 +14,12 @@ export default function PostsList(): ReactElement {
     dispatch(fetchPostsDataAction());
   }, []);
 
-  console.log('POSTS');
-  console.log(posts);
-
   return (
-    <ul>
+    <UlStyled>
       {posts.map((post: PostType) => {
-        console.log(post);
         return (
           <PostCard
+            key={post.id}
             id={post.id}
             postedDate={post.postedDate}
             title={post.title}
@@ -32,6 +30,6 @@ export default function PostsList(): ReactElement {
           />
         );
       })}
-    </ul>
+    </UlStyled>
   );
 }

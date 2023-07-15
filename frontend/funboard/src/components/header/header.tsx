@@ -1,4 +1,10 @@
-import { HeaderStyled, LinkStyled, LiStyled, NavStyled } from './header.styled';
+import {
+  HeaderStyled,
+  LinkStyled,
+  LiStyled,
+  NavStyled,
+  PStyled,
+} from './header.styled';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { PageRouteEnum } from '../../const/routes/page-route.enum';
@@ -29,7 +35,7 @@ export default function Header(): ReactElement {
       {authStatus === AuthorizationStatusEnum.Auth ? (
         <NavStyled>
           <ul>
-            <LiStyled>Hi, {userData.name}!</LiStyled>
+            <PStyled>Hi, {userData.name}!</PStyled>
           </ul>
         </NavStyled>
       ) : null}

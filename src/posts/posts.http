@@ -18,9 +18,9 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
-  "title": "Unique title2",
-  "text": "aaaaaaaaaaaaaaaa",
-  "color": "#FFF999"
+  "title": "adfslgjhapdijfghpajudfhgpaud",
+  "text": "gh aeo iurgho qiuaerhgoque hrgouqae hrgiouhqeoriugyhqoeyrgfoqyegrouyqgeroygqoehrg",
+  "color": "#B07020"
 }
 
 ### updatePost

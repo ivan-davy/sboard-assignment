@@ -20,6 +20,14 @@ export const LiStyled = styled.li`
     color: ${({ theme }) => theme.colors.accent};
   }
 `;
+
+export const PStyled = styled.li`
+  display: inline;
+  margin: 0 20px 0 0;
+  text-transform: capitalize;
+  font-size: 0.75em;
+`;
+
 export const LinkStyled = styled(Link)`
   :hover {
     color: ${({ theme }) => theme.colors.accent};

@@ -1,9 +1,18 @@
-import React, { ReactElement, SyntheticEvent } from 'react';
+import React, { ReactElement, SyntheticEvent, useEffect } from 'react';
 import { PostType } from '../../types/post.type';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../hooks/store-hooks';
 import { getUserId } from '../../store/user/selectors';
 import { deletePostAction } from '../../store/api-actions';
+import {
+  BtnContainerDiv,
+  ButtonStyled,
+  IStyled,
+  LiStyled,
+  PStyled,
+  StrongStyled,
+} from './post-card.styled';
+import { deletePostFromStateAction } from '../../store/posts/actions';
 
 export default function PostCard({
   id,
@@ -19,26 +28,29 @@ export default function PostCard({
 
   const handleDelete = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    dispatch(deletePostAction({ postId: Number(evt.currentTarget.id) }));
+    dispatch(deletePostAction({ postId: Number(evt.currentTarget.value) }));
+    dispatch(deletePostFromStateAction(Number(evt.currentTarget.value)));
   };
 
+  useEffect(() => {}, []);
+
   return (
-    <li>
-      <div>
-        <strong>{title}</strong>
-        <p>{text}</p>
-        <i>{`by ${createdBy}#${createdById}, ${dayjs(postedDate).format(
-          'DD/MM/YY',
-        )}`}</i>
-      </div>
+    <LiStyled borderColor={color}>
+      <StrongStyled>{title}</StrongStyled>
+      <PStyled>{text}</PStyled>
+      <IStyled>{`by ${createdBy}#${createdById}, ${dayjs(postedDate).format(
+        'DD/MM/YY',
+      )}`}</IStyled>
       {userId === createdById ? (
-        <span>
-          <button id={`${id}`}>Edit</button>
-          <button id={`${id}`} onClick={handleDelete}>
+        <BtnContainerDiv>
+          <ButtonStyled value={id} color={'darkorange'}>
+            Edit
+          </ButtonStyled>
+          <ButtonStyled value={id} color={'indianred'} onClick={handleDelete}>
             Delete
-          </button>
-        </span>
+          </ButtonStyled>
+        </BtnContainerDiv>
       ) : null}
-    </li>
+    </LiStyled>
   );
 }
