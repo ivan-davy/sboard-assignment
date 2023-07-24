@@ -21,7 +21,7 @@ export const fetchPostsDataAction = createAsyncThunk<
     state: StateType;
     extra: AxiosInstance;
   }
->('posts/api/get-all', async (_, { getState, dispatch, extra: api }) => {
+>('posts/api/get-all', async (_, { extra: api }) => {
   try {
     return (await api.get<PostType[]>(ApiRouteEnum.Posts)).data;
   } catch (err) {
@@ -114,7 +114,7 @@ export const checkAuthAction = createAsyncThunk<
     state: StateType;
     extra: AxiosInstance;
   }
->('user/api/check-auth', async (_, { dispatch, extra: api }) => {
+>('user/api/check-auth', async (_, { extra: api }) => {
   const userData = (await api.get<UserType>(ApiRouteEnum.SignIn)).data;
   const completeUserData: CheckAuthReturnType = {
     id: userData.id,
@@ -136,7 +136,7 @@ export const registerAction = createAsyncThunk<
   }
 >(
   'user/api/register',
-  async ({ name, email, password }, { dispatch, extra: api }) => {
+  async ({ name, email, password }, { extra: api }) => {
     const { data } = await api.post<{
       id: number;
       name: string;
@@ -155,8 +155,6 @@ export const registerAction = createAsyncThunk<
       token: data.accessToken,
     };
 
-    console.log(userData.token as string);
-
     saveToken(userData.token as string);
     return userData;
   },
@@ -171,7 +169,7 @@ export const loginAction = createAsyncThunk<
     state: StateType;
     extra: AxiosInstance;
   }
->('user/api/login', async ({ email, password }, { dispatch, extra: api }) => {
+>('user/api/login', async ({ email, password }, { extra: api }) => {
   const { data } = await api.post<{
     id: number;
     name: string;

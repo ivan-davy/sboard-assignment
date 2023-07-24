@@ -7,7 +7,6 @@ import {
   deletePostFromStateAction,
   updatePostInStateAction,
 } from './actions';
-import { stat } from 'fs';
 
 export const initialState = [] as PostType[];
 
